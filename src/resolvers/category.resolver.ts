@@ -7,8 +7,10 @@ import { Movie, MovieModel } from "../entities/movie.model";
 export class CategoryResolver {
 
  @Query(()=>[Category])
- async categories():Promise<Category[]>{
-  return await CategoryModel.find();
+ async categories(@Arg("filter",{nullable:true}) filter: string ):Promise<Category[]>{
+  const query = JSON.parse(filter)
+  console.log(query)
+  return await CategoryModel.find(query);
  }
  
  @Query(()=>Category)
